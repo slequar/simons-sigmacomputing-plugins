@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { landingStyles } from "../styles/landingStyles";
 
 export default function Landing() {
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
@@ -15,10 +16,10 @@ export default function Landing() {
   const onloadUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/onload`;
 
   return (
-    <div className="landing-page">
-      <header className="header">
-        <h1>Simon's Sigma Computing Plugins</h1>
-        <p>
+    <div style={landingStyles.container}>
+      <header style={landingStyles.header}>
+        <h1 style={landingStyles.headerTitle}>Simon's Sigma Computing Plugins</h1>
+        <p style={landingStyles.subtitle}>
           This is a Github Pages site for Simon's utility plugins, usually
           focused around action integrations in Sigma. The source code is
           available under an open license on{" "}
@@ -28,26 +29,26 @@ export default function Landing() {
           .
         </p>
       </header>
-      <main className="main-content">
-        <section className="plugins">
-          <h2>Available Plugins</h2>
+      <main style={landingStyles.mainContent}>
+        <section style={landingStyles.pluginsSection}>
+          <h2 style={landingStyles.pluginsSectionTitle}>Available Plugins</h2>
 
-          <div className="plugin-card">
-            <h3>Clock Plugin</h3>
-            <p className="plugin-description">
+          <div style={landingStyles.pluginCard}>
+            <h3 style={landingStyles.pluginCardTitle}>Clock Plugin</h3>
+            <p style={landingStyles.pluginDescription}>
               A timer-based plugin that executes actions at regular intervals.
               Configure the tick rate in milliseconds, control the running
               state, and trigger actions automatically or manually through the
               "Do One Tick" action.
             </p>
-            <p className="plugin-features">
+            <p style={landingStyles.pluginFeatures}>
               <strong>Features:</strong> Configurable intervals, start/stop
               control, automatic and manual triggering
             </p>
-            <div className="url-container">
-              <strong>URL:</strong> <code>{clockUrl}</code>
+            <div style={landingStyles.urlContainer}>
+              <strong>URL:</strong> <code style={landingStyles.pluginCode}>{clockUrl}</code>
               <button
-                className="copy-button"
+                style={landingStyles.copyButton}
                 onClick={() => {
                   copyToClipboard(clockUrl);
                 }}
@@ -58,22 +59,22 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="plugin-card">
-            <h3>OnLoad Plugin</h3>
-            <p className="plugin-description">
+          <div style={landingStyles.pluginCard}>
+            <h3 style={landingStyles.pluginCardTitle}>OnLoad Plugin</h3>
+            <p style={landingStyles.pluginDescription}>
               An initialization plugin that triggers an action when loaded, with
               optional configurable delay. Ideal for setting up workflows or
               executing startup actions automatically.
             </p>
-            <p className="plugin-features">
+            <p style={landingStyles.pluginFeatures}>
               <strong>Features:</strong> Automatic on-load triggering, optional
               delay (currently broken due to Sigma-side bug), manual step
               execution
             </p>
-            <div className="url-container">
-              <strong>URL:</strong> <code>{onloadUrl}</code>
+            <div style={landingStyles.urlContainer}>
+              <strong>URL:</strong> <code style={landingStyles.pluginCode}>{onloadUrl}</code>
               <button
-                className="copy-button"
+                style={landingStyles.copyButton}
                 onClick={() => {
                   copyToClipboard(onloadUrl);
                 }}
@@ -85,7 +86,7 @@ export default function Landing() {
           </div>
         </section>
       </main>
-      <footer className="footer">
+      <footer style={landingStyles.footer}>
         <p>&copy; 2025 Simon's Sigma Computing Plugins</p>
       </footer>
     </div>

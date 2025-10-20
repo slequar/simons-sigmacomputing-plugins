@@ -8,6 +8,16 @@ import {
 } from "@sigmacomputing/plugin";
 
 import type { ActualVariable_t } from "../types";
+import {
+  pluginContainerStyles,
+  pluginHeaderStyles,
+  pluginTitleStyles,
+  pluginContentStyles,
+  pluginStatusItemStyles,
+  pluginLabelStyles,
+  pluginValueStyles,
+  statusColors,
+} from "../styles/pluginStyles";
 
 interface OnLoadConfig_t {
   tick: string;
@@ -60,7 +70,25 @@ function OnLoad() {
     };
   }, [doTick, delayMs, hasFired]);
 
-  return <>onLoad - {JSON.stringify({ hasFired, delayMs })}</>;
+  return (
+    <div style={pluginContainerStyles}>
+      <div style={pluginHeaderStyles}>
+        <h2 style={pluginTitleStyles}>🚀 OnLoad Plugin</h2>
+      </div>
+      <div style={pluginContentStyles}>
+        <div style={pluginStatusItemStyles}>
+          <span style={pluginLabelStyles}>Status:</span>
+          <span style={{ ...pluginValueStyles, color: hasFired ? statusColors.fired : statusColors.waiting }}>
+            {hasFired ? "Fired" : "Waiting"}
+          </span>
+        </div>
+        <div style={pluginStatusItemStyles}>
+          <span style={pluginLabelStyles}>Delay:</span>
+          <span style={pluginValueStyles}>{delayMs}ms</span>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default OnLoad;

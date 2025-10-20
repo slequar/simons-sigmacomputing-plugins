@@ -8,6 +8,16 @@ import {
 } from "@sigmacomputing/plugin";
 
 import type { ActualVariable_t } from "../types";
+import {
+  pluginContainerStyles,
+  pluginHeaderStyles,
+  pluginTitleStyles,
+  pluginContentStyles,
+  pluginStatusItemStyles,
+  pluginLabelStyles,
+  pluginValueStyles,
+  statusColors,
+} from "../styles/pluginStyles";
 
 interface ClockConfig_t {
   MSPT: string;
@@ -72,7 +82,25 @@ function Clock() {
     };
   }, [isRunning, mspt, doTick]);
 
-  return <>:clock: - {JSON.stringify({ mspt, isRunning })}</>;
+  return (
+    <div style={pluginContainerStyles}>
+      <div style={pluginHeaderStyles}>
+        <h2 style={pluginTitleStyles}>⏱️ Clock Plugin</h2>
+      </div>
+      <div style={pluginContentStyles}>
+        <div style={pluginStatusItemStyles}>
+          <span style={pluginLabelStyles}>Status:</span>
+          <span style={{ ...pluginValueStyles, color: isRunning ? statusColors.running : statusColors.stopped }}>
+            {isRunning ? "Running" : "Stopped"}
+          </span>
+        </div>
+        <div style={pluginStatusItemStyles}>
+          <span style={pluginLabelStyles}>Tick Rate:</span>
+          <span style={pluginValueStyles}>{mspt}ms</span>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Clock;
