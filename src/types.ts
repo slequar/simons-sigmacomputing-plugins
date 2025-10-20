@@ -1,10 +1,10 @@
-interface ActualNumberVariable_t {
+interface ActualNumberVariable {
   type: "number";
   value: number | null;
 }
-interface ActualBooleanVariable_t {
+interface ActualBooleanVariable {
   type: "boolean";
   value: boolean | null;
 }
 
-export type ActualVariable_t = ActualNumberVariable_t | ActualBooleanVariable_t;
+export type ActualVariable = ActualNumberVariable | ActualBooleanVariable;

@@ -7,7 +7,7 @@ import {
   useVariable,
 } from "@sigmacomputing/plugin";
 
-import type { ActualVariable_t } from "../types";
+import type { ActualVariable } from "../types";
 import {
   pluginContainerStyles,
   pluginHeaderStyles,
@@ -47,16 +47,16 @@ function Clock() {
   const config: ClockConfig_t = useConfig() as ClockConfig_t;
 
   // Extract the variables from config panel
-  const [msptVar, _setMspt] = useVariable(config.MSPT);
-  const [isRunningVar, _setIsRunning] = useVariable(config.isRunning);
+  const [msptVar] = useVariable(config.MSPT);
+  const [isRunningVar] = useVariable(config.isRunning);
   const mspt = useMemo(() => {
-    const value = msptVar?.defaultValue as ActualVariable_t | undefined;
+    const value = msptVar?.defaultValue as ActualVariable | undefined;
     return value?.type === "number" && value.value !== null
       ? value.value
       : 1000;
   }, [msptVar]);
   const isRunning = useMemo(() => {
-    const value = isRunningVar?.defaultValue as ActualVariable_t | undefined;
+    const value = isRunningVar?.defaultValue as ActualVariable | undefined;
     return value?.type === "boolean" && value.value !== null
       ? value.value
       : false;

@@ -39,16 +39,6 @@ export const landingStyles = {
     padding: spacing.lg,
   },
 
-  hero: {
-    textAlign: "center" as const,
-    maxWidth: "600px",
-    marginBottom: spacing.xxl,
-  },
-
-  heroTitle: {
-    marginTop: 0,
-  },
-
   pluginsSection: {
     width: "100%",
     maxWidth: "900px",

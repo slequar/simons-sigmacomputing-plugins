@@ -7,7 +7,7 @@ import {
   useVariable,
 } from "@sigmacomputing/plugin";
 
-import type { ActualVariable_t } from "../types";
+import type { ActualVariable } from "../types";
 import {
   pluginContainerStyles,
   pluginHeaderStyles,
@@ -50,7 +50,7 @@ function OnLoad() {
 
   // Wait 1s by default
   const delayMs = useMemo(() => {
-    const value = delayMsVar?.defaultValue as ActualVariable_t | undefined;
+    const value = delayMsVar?.defaultValue as ActualVariable | undefined;
     return value?.type === "number" && value.value !== null
       ? value.value
       : 1000;

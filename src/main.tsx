@@ -1,7 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
+import { globalStyles } from "./styles/globalStyles";
 import App from "./App.tsx";
+
+// Inject global styles
+const styleElement = document.createElement("style");
+styleElement.textContent = globalStyles;
+document.head.appendChild(styleElement);
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
