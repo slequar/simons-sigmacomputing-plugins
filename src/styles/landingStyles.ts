@@ -1,4 +1,10 @@
-import { colors, spacing, typography, borderRadius, transitions } from "./theme";
+import {
+  colors,
+  spacing,
+  typography,
+  borderRadius,
+  transitions,
+} from "./theme";
 
 export const landingStyles = {
   container: {
@@ -140,4 +146,3 @@ export const landingStyles = {
     fontSize: typography.fontSize.sm,
   },
 };
-

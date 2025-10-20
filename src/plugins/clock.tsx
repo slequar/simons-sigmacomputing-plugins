@@ -90,7 +90,12 @@ function Clock() {
       <div style={pluginContentStyles}>
         <div style={pluginStatusItemStyles}>
           <span style={pluginLabelStyles}>Status:</span>
-          <span style={{ ...pluginValueStyles, color: isRunning ? statusColors.running : statusColors.stopped }}>
+          <span
+            style={{
+              ...pluginValueStyles,
+              color: isRunning ? statusColors.running : statusColors.stopped,
+            }}
+          >
             {isRunning ? "Running" : "Stopped"}
           </span>
         </div>

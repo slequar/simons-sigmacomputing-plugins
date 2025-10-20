@@ -1,7 +1,7 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
-import Clock from './plugins/clock'
-import OnLoad from './plugins/onLoad'
-import Landing from './pages/Landing'
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import Clock from "./plugins/clock";
+import OnLoad from "./plugins/onLoad";
+import Landing from "./pages/Landing";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Route path="/onload" element={<OnLoad />} />
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

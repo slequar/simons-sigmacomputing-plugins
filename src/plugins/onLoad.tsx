@@ -78,7 +78,12 @@ function OnLoad() {
       <div style={pluginContentStyles}>
         <div style={pluginStatusItemStyles}>
           <span style={pluginLabelStyles}>Status:</span>
-          <span style={{ ...pluginValueStyles, color: hasFired ? statusColors.fired : statusColors.waiting }}>
+          <span
+            style={{
+              ...pluginValueStyles,
+              color: hasFired ? statusColors.fired : statusColors.waiting,
+            }}
+          >
             {hasFired ? "Fired" : "Waiting"}
           </span>
         </div>

@@ -4,7 +4,7 @@ export const globalStyles = `
   :root {
     font-family: ${typography.fontFamily};
     line-height: 1.5;
-    font-weight: ${typography.fontWeight.normal};
+    font-weight: ${typography.fontWeight.normal.toString()};
 
     color-scheme: light dark;
     color: ${colors.textPrimary};
@@ -48,4 +48,3 @@ export const globalStyles = `
     }
   }
 `;
-

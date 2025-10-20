@@ -18,7 +18,9 @@ export default function Landing() {
   return (
     <div style={landingStyles.container}>
       <header style={landingStyles.header}>
-        <h1 style={landingStyles.headerTitle}>Simon's Sigma Computing Plugins</h1>
+        <h1 style={landingStyles.headerTitle}>
+          Simon's Sigma Computing Plugins
+        </h1>
         <p style={landingStyles.subtitle}>
           This is a Github Pages site for Simon's utility plugins, usually
           focused around action integrations in Sigma. The source code is
@@ -46,7 +48,8 @@ export default function Landing() {
               control, automatic and manual triggering
             </p>
             <div style={landingStyles.urlContainer}>
-              <strong>URL:</strong> <code style={landingStyles.pluginCode}>{clockUrl}</code>
+              <strong>URL:</strong>{" "}
+              <code style={landingStyles.pluginCode}>{clockUrl}</code>
               <button
                 style={landingStyles.copyButton}
                 onClick={() => {
@@ -72,7 +75,8 @@ export default function Landing() {
               execution
             </p>
             <div style={landingStyles.urlContainer}>
-              <strong>URL:</strong> <code style={landingStyles.pluginCode}>{onloadUrl}</code>
+              <strong>URL:</strong>{" "}
+              <code style={landingStyles.pluginCode}>{onloadUrl}</code>
               <button
                 style={landingStyles.copyButton}
                 onClick={() => {

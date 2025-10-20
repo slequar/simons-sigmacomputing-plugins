@@ -62,4 +62,3 @@ export const statusColors = {
   fired: colors.success,
   waiting: colors.warning,
 };
-
