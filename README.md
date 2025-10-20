@@ -1,22 +1,29 @@
 # Simon's Sigma Computing Plugins
 
-A React + TypeScript + Vite application for building and managing custom plugins for Sigma Computing.
+A collection of custom plugins for Sigma Computing, deployed at [simons-sigmacomputing-plugins.github.io](https://slequar.github.io/simons-sigmacomputing-plugins/).
 
-This project provides a plugin development framework that integrates with the [@sigmacomputing/plugin](https://www.npmjs.com/package/@sigmacomputing/plugin) SDK to create custom extensions for the Sigma Computing platform.
+This project showcases example plugins that integrate with the [@sigmacomputing/plugin](https://www.npmjs.com/package/@sigmacomputing/plugin) SDK to extend Sigma Computing's capabilities.
 
-## Features
+## Available Plugins
+
+- **Clock Plugin** - A timer-based plugin that executes actions at regular intervals with configurable tick rates
+- **OnLoad Plugin** - An initialization plugin that triggers actions when loaded with optional delay
+
+Visit the [deployed site](https://slequar.github.io/simons-sigmacomputing-plugins/) to get the plugin URLs for use in Sigma Computing.
+
+## Tech Stack
 
 - **React 19** with TypeScript for type-safe component development
 - **Vite** for fast development and optimized builds
-- **React Router** for multi-page plugin navigation
+- **React Router** for multi-page navigation
 - **React Compiler** enabled for automatic performance optimizations
 - **ESLint & Prettier** for code quality and formatting
 - **Custom Theme System** with centralized color, typography, and spacing configuration
 
 ## Project Structure
 
-- `src/plugins/` - Custom plugin implementations
-- `src/pages/` - Application pages and views
+- `src/plugins/` - Plugin implementations
+- `src/pages/` - Landing page and plugin views
 - `src/styles/` - Global styles and theme configuration
 - `src/types.ts` - TypeScript type definitions
 
