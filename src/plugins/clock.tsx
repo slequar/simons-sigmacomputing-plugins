@@ -41,11 +41,15 @@ function Clock() {
   const [isRunningVar, _setIsRunning] = useVariable(config.isRunning);
   const mspt = useMemo(() => {
     const value = msptVar?.defaultValue as ActualVariable_t | undefined;
-    return value?.type === "number" ? value.value : 1000;
+    return value?.type === "number" && value.value !== null
+      ? value.value
+      : 1000;
   }, [msptVar]);
   const isRunning = useMemo(() => {
     const value = isRunningVar?.defaultValue as ActualVariable_t | undefined;
-    return value?.type === "boolean" ? value.value : false;
+    return value?.type === "boolean" && value.value !== null
+      ? value.value
+      : false;
   }, [isRunningVar]);
 
   // Set up action trigger (sending data out)

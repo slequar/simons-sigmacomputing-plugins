@@ -1,4 +1,3 @@
-import './App.css'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import Clock from './plugins/clock'
 import OnLoad from './plugins/onLoad'

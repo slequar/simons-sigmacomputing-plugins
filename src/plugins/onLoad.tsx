@@ -41,7 +41,9 @@ function OnLoad() {
   // Wait 1s by default
   const delayMs = useMemo(() => {
     const value = delayMsVar?.defaultValue as ActualVariable_t | undefined;
-    return value?.type === "number" ? value.value : 1000;
+    return value?.type === "number" && value.value !== null
+      ? value.value
+      : 1000;
   }, [delayMsVar]);
 
   // Trigger tick once on load with optional delay
