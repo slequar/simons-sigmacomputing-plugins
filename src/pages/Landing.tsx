@@ -14,6 +14,7 @@ export default function Landing() {
 
   const clockUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/clock`;
   const onloadUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/onload`;
+  const echoUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/echo`;
 
   return (
     <div style={landingStyles.container}>
@@ -85,6 +86,32 @@ export default function Landing() {
                 title="Copy URL to clipboard"
               >
                 {copiedUrl === onloadUrl ? "✓ Copied!" : "Copy"}
+              </button>
+            </div>
+          </div>
+
+          <div style={landingStyles.pluginCard}>
+            <h3 style={landingStyles.pluginCardTitle}>Echo Plugin</h3>
+            <p style={landingStyles.pluginDescription}>
+              A simple echo plugin that receives a trigger and immediately sends
+              back an output effect. Useful for testing workflows or creating
+              simple pass-through actions.
+            </p>
+            <p style={landingStyles.pluginFeatures}>
+              <strong>Features:</strong> Instant echo response, trigger
+              counting, simple pass-through action
+            </p>
+            <div style={landingStyles.urlContainer}>
+              <strong>URL:</strong>{" "}
+              <code style={landingStyles.pluginCode}>{echoUrl}</code>
+              <button
+                style={landingStyles.copyButton}
+                onClick={() => {
+                  copyToClipboard(echoUrl);
+                }}
+                title="Copy URL to clipboard"
+              >
+                {copiedUrl === echoUrl ? "✓ Copied!" : "Copy"}
               </button>
             </div>
           </div>
