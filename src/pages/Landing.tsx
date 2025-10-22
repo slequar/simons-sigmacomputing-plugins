@@ -26,7 +26,7 @@ export default function Landing() {
           This is a Github Pages site for Simon's utility plugins, usually
           focused around action integrations in Sigma. The source code is
           available under an open license on{" "}
-          <a href="https://github.com/simonsigmacomputing/simons-sigmacomputing-plugins">
+          <a href="https://github.com/slequar/simons-sigmacomputing-plugins">
             Github
           </a>
           .
