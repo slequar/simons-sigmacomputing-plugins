@@ -55,6 +55,7 @@ yarn format    # Format code with Prettier
 ## Development
 
 This project uses:
+
 - **ESLint** with React-specific rules for code quality
 - **TypeScript** for type safety
 - **React Compiler** for automatic performance optimizations

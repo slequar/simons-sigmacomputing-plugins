@@ -98,8 +98,8 @@ export default function Landing() {
               simple pass-through actions.
             </p>
             <p style={landingStyles.pluginFeatures}>
-              <strong>Features:</strong> Instant echo response, trigger counting,
-              simple pass-through action
+              <strong>Features:</strong> Instant echo response, trigger
+              counting, simple pass-through action
             </p>
             <div style={landingStyles.urlContainer}>
               <strong>URL:</strong>{" "}
