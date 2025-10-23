@@ -1,6 +1,6 @@
 # Simon's Sigma Computing Plugins
 
-A collection of custom plugins for Sigma Computing, deployed at [simons-sigmacomputing-plugins.github.io](https://slequar.github.io/simons-sigmacomputing-plugins/).
+A collection of custom plugins for Sigma Computing, deployed at [slequar.github.io/simons-sigmacomputing-plugins/](https://slequar.github.io/simons-sigmacomputing-plugins/).
 
 This project showcases example plugins that integrate with the [@sigmacomputing/plugin](https://www.npmjs.com/package/@sigmacomputing/plugin) SDK to extend Sigma Computing's capabilities.
 
