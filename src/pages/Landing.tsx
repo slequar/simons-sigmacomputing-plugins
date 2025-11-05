@@ -15,7 +15,7 @@ export default function Landing() {
   const clockUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/clock`;
   const onloadUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/onload`;
   const echoUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/echo`;
-  const comparatorUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/comparator`;
+  const onchangeUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/onchange`;
 
   return (
     <div style={landingStyles.container}>
@@ -131,15 +131,15 @@ export default function Landing() {
             </p>
             <div style={landingStyles.urlContainer}>
               <strong>URL:</strong>{" "}
-              <code style={landingStyles.pluginCode}>{comparatorUrl}</code>
+              <code style={landingStyles.pluginCode}>{onchangeUrl}</code>
               <button
                 style={landingStyles.copyButton}
                 onClick={() => {
-                  copyToClipboard(comparatorUrl);
+                  copyToClipboard(onchangeUrl);
                 }}
                 title="Copy URL to clipboard"
               >
-                {copiedUrl === comparatorUrl ? "✓ Copied!" : "Copy"}
+                {copiedUrl === onchangeUrl ? "✓ Copied!" : "Copy"}
               </button>
             </div>
           </div>
