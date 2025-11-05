@@ -15,6 +15,7 @@ export default function Landing() {
   const clockUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/clock`;
   const onloadUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/onload`;
   const echoUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/echo`;
+  const comparatorUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/comparator`;
 
   return (
     <div style={landingStyles.container}>
@@ -112,6 +113,32 @@ export default function Landing() {
                 title="Copy URL to clipboard"
               >
                 {copiedUrl === echoUrl ? "✓ Copied!" : "Copy"}
+              </button>
+            </div>
+          </div>
+
+          <div style={landingStyles.pluginCard}>
+            <h3 style={landingStyles.pluginCardTitle}>⚖️ Comparator Plugin</h3>
+            <p style={landingStyles.pluginDescription}>
+              A comparison plugin that monitors two values and fires an action
+              whenever the listener value matches the test value. Perfect for
+              conditional workflows and value-based triggers.
+            </p>
+            <p style={landingStyles.pluginFeatures}>
+              <strong>Features:</strong> Real-time value comparison, automatic
+              match detection, match counting, supports numbers and booleans
+            </p>
+            <div style={landingStyles.urlContainer}>
+              <strong>URL:</strong>{" "}
+              <code style={landingStyles.pluginCode}>{comparatorUrl}</code>
+              <button
+                style={landingStyles.copyButton}
+                onClick={() => {
+                  copyToClipboard(comparatorUrl);
+                }}
+                title="Copy URL to clipboard"
+              >
+                {copiedUrl === comparatorUrl ? "✓ Copied!" : "Copy"}
               </button>
             </div>
           </div>
