@@ -118,15 +118,16 @@ export default function Landing() {
           </div>
 
           <div style={landingStyles.pluginCard}>
-            <h3 style={landingStyles.pluginCardTitle}>⚖️ Comparator Plugin</h3>
+            <h3 style={landingStyles.pluginCardTitle}>🔄 On Change Plugin</h3>
             <p style={landingStyles.pluginDescription}>
-              A comparison plugin that monitors two values and fires an action
-              whenever the listener value matches the test value. Perfect for
-              conditional workflows and value-based triggers.
+              A change detection plugin that fires an action whenever a control
+              value changes. Supports numbers and booleans, perfect for
+              monitoring variable changes and triggering workflows.
             </p>
             <p style={landingStyles.pluginFeatures}>
-              <strong>Features:</strong> Real-time value comparison, automatic
-              match detection, match counting, supports numbers and booleans
+              <strong>Features:</strong> Real-time value monitoring, automatic
+              trigger on any value change, change counting, supports numbers and
+              booleans
             </p>
             <div style={landingStyles.urlContainer}>
               <strong>URL:</strong>{" "}

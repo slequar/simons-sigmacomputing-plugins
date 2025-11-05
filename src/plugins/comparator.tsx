@@ -15,105 +15,85 @@ import {
   pluginStatusItemStyles,
   pluginLabelStyles,
   pluginValueStyles,
-  statusColors,
 } from "../styles/pluginStyles";
 
 interface ComparatorConfig {
-  testValue: string;
-  listenerValue: string;
-  onMatch: string;
+  control: string;
+  onChange: string;
 }
 
 function Comparator() {
-  const [isMatching, setIsMatching] = useState(false);
-  const [matchCount, setMatchCount] = useState(0);
+  const [currentValue, setCurrentValue] = useState<unknown>(null);
+  const [changeCount, setChangeCount] = useState(0);
+  const [previousValue, setPreviousValue] = useState<unknown>(null);
 
   useEditorPanelConfig([
     {
       type: "variable",
-      name: "testValue",
-      label: "Test Value",
-      allowedTypes: ["number", "boolean"],
+      name: "control",
+      label: "Control",
+      allowedTypes: [
+        "boolean",
+        "date",
+        "number",
+        "text",
+        "text-list",
+        "number-list",
+        "date-list",
+        "number-range",
+        "date-range",
+      ],
     },
-    {
-      type: "variable",
-      name: "listenerValue",
-      label: "Listener Value",
-      allowedTypes: ["number", "boolean"],
-    },
-    { type: "action-trigger", name: "onMatch", label: "On Match" },
+    { type: "action-trigger", name: "onChange", label: "On Change" },
   ]);
 
   const config: ComparatorConfig = useConfig() as ComparatorConfig;
 
   // Set up action trigger (sending data out)
-  const fireMatch = useActionTrigger(config.onMatch);
+  const fireOnChange = useActionTrigger(config.onChange);
 
-  // Extract variables
-  const [testValueVar] = useVariable(config.testValue);
-  const [listenerValueVar] = useVariable(config.listenerValue);
+  // Extract variable
+  const [controlVar] = useVariable(config.control);
 
-  // Get the actual values
-  const testValue = useMemo(() => {
-    const value = testValueVar?.defaultValue as ActualVariable | undefined;
-    return value?.value;
-  }, [testValueVar]);
+  // Get the actual value
+  const controlValue = useMemo(() => {
+    const value = controlVar?.defaultValue as ActualVariable | undefined;
+    return value?.value ?? null;
+  }, [controlVar]);
 
-  const listenerValue = useMemo(() => {
-    const value = listenerValueVar?.defaultValue as ActualVariable | undefined;
-    return value?.value;
-  }, [listenerValueVar]);
-
-  // Check for match and fire action
+  // Fire action when control value changes
   useEffect(() => {
-    const matches =
-      testValue !== null &&
-      listenerValue !== null &&
-      testValue === listenerValue;
-    setIsMatching(matches);
+    setCurrentValue(controlValue);
 
-    if (matches) {
-      setMatchCount((prev) => prev + 1);
-      fireMatch();
+    // Only fire if the value actually changed
+    if (controlValue !== previousValue && previousValue !== null) {
+      setChangeCount((prev) => prev + 1);
+      fireOnChange();
     }
-  }, [testValue, listenerValue, fireMatch]);
+
+    setPreviousValue(controlValue);
+  }, [controlValue, previousValue, fireOnChange]);
 
   return (
     <div style={pluginContainerStyles}>
       <div style={pluginHeaderStyles}>
-        <h2 style={pluginTitleStyles}>⚖️ Comparator Plugin</h2>
+        <h2 style={pluginTitleStyles}>🔄 On Change Plugin</h2>
       </div>
       <div style={pluginContentStyles}>
         <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Status:</span>
-          <span
-            style={{
-              ...pluginValueStyles,
-              color: isMatching ? statusColors.running : statusColors.stopped,
-            }}
-          >
-            {isMatching ? "Matching" : "Not Matching"}
-          </span>
-        </div>
-        <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Test Value:</span>
+          <span style={pluginLabelStyles}>Current Value:</span>
           <span style={pluginValueStyles}>
-            {testValue !== null && testValue !== undefined
-              ? String(testValue)
+            {currentValue !== null
+              ? typeof currentValue === "object"
+                ? JSON.stringify(currentValue)
+                : // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                  String(currentValue)
               : "—"}
           </span>
         </div>
         <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Listener Value:</span>
-          <span style={pluginValueStyles}>
-            {listenerValue !== null && listenerValue !== undefined
-              ? String(listenerValue)
-              : "—"}
-          </span>
-        </div>
-        <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Matches Fired:</span>
-          <span style={pluginValueStyles}>{matchCount}</span>
+          <span style={pluginLabelStyles}>Changes Detected:</span>
+          <span style={pluginValueStyles}>{changeCount}</span>
         </div>
       </div>
     </div>

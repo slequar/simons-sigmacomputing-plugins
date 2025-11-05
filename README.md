@@ -9,6 +9,7 @@ This project showcases example plugins that integrate with the [@sigmacomputing/
 - **Clock Plugin** - A timer-based plugin that executes actions at regular intervals with configurable tick rates
 - **OnLoad Plugin** - An initialization plugin that triggers actions when loaded with optional delay
 - **Echo Plugin** - A simple pass-through plugin that receives a trigger and immediately sends back an output effect
+- **On Change Plugin** - A change detection plugin that fires an action whenever a control value changes (supports all control types: boolean, date, number, text, lists, and ranges)
 
 Visit the [deployed site](https://slequar.github.io/simons-sigmacomputing-plugins/) to get the plugin URLs for use in Sigma Computing.
 
