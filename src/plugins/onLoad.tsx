@@ -8,7 +8,8 @@ import {
 } from "@sigmacomputing/plugin";
 
 import type { ActualVariable } from "../types";
-import { PluginContainer, StatusItem } from "../components";
+import { PluginContainer } from "../components/PluginContainer";
+import { StatusItem } from "../components/StatusItem";
 import { statusColors } from "../styles/pluginStyles";
 
 interface OnLoadConfig_t {

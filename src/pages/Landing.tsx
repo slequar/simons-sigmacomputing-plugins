@@ -1,5 +1,5 @@
 import { landingStyles } from "../styles/landingStyles";
-import { PluginCard } from "../components";
+import { PluginCard } from "../components/PluginCard";
 
 export default function Landing() {
   const clockUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/clock`;
