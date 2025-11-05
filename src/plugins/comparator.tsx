@@ -19,101 +19,72 @@ import {
 } from "../styles/pluginStyles";
 
 interface ComparatorConfig {
-  testValue: string;
-  listenerValue: string;
-  onMatch: string;
+  condition: string;
+  onTrue: string;
 }
 
 function Comparator() {
-  const [isMatching, setIsMatching] = useState(false);
-  const [matchCount, setMatchCount] = useState(0);
+  const [isTrue, setIsTrue] = useState(false);
+  const [triggerCount, setTriggerCount] = useState(0);
+  const [previousValue, setPreviousValue] = useState<boolean | null>(null);
 
   useEditorPanelConfig([
     {
       type: "variable",
-      name: "testValue",
-      label: "Test Value",
-      allowedTypes: ["number", "boolean"],
+      name: "condition",
+      label: "Condition",
+      allowedTypes: ["boolean"],
     },
-    {
-      type: "variable",
-      name: "listenerValue",
-      label: "Listener Value",
-      allowedTypes: ["number", "boolean"],
-    },
-    { type: "action-trigger", name: "onMatch", label: "On Match" },
+    { type: "action-trigger", name: "onTrue", label: "On True" },
   ]);
 
   const config: ComparatorConfig = useConfig() as ComparatorConfig;
 
   // Set up action trigger (sending data out)
-  const fireMatch = useActionTrigger(config.onMatch);
+  const fireOnTrue = useActionTrigger(config.onTrue);
 
-  // Extract variables
-  const [testValueVar] = useVariable(config.testValue);
-  const [listenerValueVar] = useVariable(config.listenerValue);
+  // Extract variable
+  const [conditionVar] = useVariable(config.condition);
 
-  // Get the actual values
-  const testValue = useMemo(() => {
-    const value = testValueVar?.defaultValue as ActualVariable | undefined;
-    return value?.value;
-  }, [testValueVar]);
+  // Get the actual value
+  const conditionValue = useMemo(() => {
+    const value = conditionVar?.defaultValue as ActualVariable | undefined;
+    return value?.type === "boolean" ? value.value : null;
+  }, [conditionVar]);
 
-  const listenerValue = useMemo(() => {
-    const value = listenerValueVar?.defaultValue as ActualVariable | undefined;
-    return value?.value;
-  }, [listenerValueVar]);
-
-  // Check for match and fire action
+  // Fire action when condition becomes true
   useEffect(() => {
-    const matches =
-      testValue !== null &&
-      listenerValue !== null &&
-      testValue === listenerValue;
-    setIsMatching(matches);
+    setIsTrue(conditionValue === true);
 
-    if (matches) {
-      setMatchCount((prev) => prev + 1);
-      fireMatch();
+    // Only fire if the value changed from false/null to true
+    if (conditionValue === true && previousValue !== true) {
+      setTriggerCount((prev) => prev + 1);
+      fireOnTrue();
     }
-  }, [testValue, listenerValue, fireMatch]);
+
+    setPreviousValue(conditionValue);
+  }, [conditionValue, previousValue, fireOnTrue]);
 
   return (
     <div style={pluginContainerStyles}>
       <div style={pluginHeaderStyles}>
-        <h2 style={pluginTitleStyles}>⚖️ Comparator Plugin</h2>
+        <h2 style={pluginTitleStyles}>✓ Condition Plugin</h2>
       </div>
       <div style={pluginContentStyles}>
         <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Status:</span>
+          <span style={pluginLabelStyles}>Condition:</span>
           <span
             style={{
               ...pluginValueStyles,
-              color: isMatching ? statusColors.running : statusColors.stopped,
+              color: isTrue ? statusColors.running : statusColors.stopped,
             }}
           >
-            {isMatching ? "Matching" : "Not Matching"}
+            {isTrue ? "True" : "False"}
           </span>
         </div>
         <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Test Value:</span>
-          <span style={pluginValueStyles}>
-            {testValue !== null && testValue !== undefined
-              ? String(testValue)
-              : "—"}
-          </span>
-        </div>
-        <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Listener Value:</span>
-          <span style={pluginValueStyles}>
-            {listenerValue !== null && listenerValue !== undefined
-              ? String(listenerValue)
-              : "—"}
-          </span>
-        </div>
-        <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Matches Fired:</span>
-          <span style={pluginValueStyles}>{matchCount}</span>
+          <span style={pluginLabelStyles}>Triggers Fired:</span>
+          <span style={pluginValueStyles}>{triggerCount}</span>
         </div>
       </div>
     </div>
