@@ -17,12 +17,12 @@ import {
   pluginValueStyles,
 } from "../styles/pluginStyles";
 
-interface ComparatorConfig {
+interface OnChangeConfig {
   control: string;
   onChange: string;
 }
 
-function Comparator() {
+function OnChange() {
   const [currentValue, setCurrentValue] = useState<unknown>(null);
   const [changeCount, setChangeCount] = useState(0);
   const [previousValue, setPreviousValue] = useState<unknown>(null);
@@ -47,7 +47,7 @@ function Comparator() {
     { type: "action-trigger", name: "onChange", label: "On Change" },
   ]);
 
-  const config: ComparatorConfig = useConfig() as ComparatorConfig;
+  const config: OnChangeConfig = useConfig() as OnChangeConfig;
 
   // Set up action trigger (sending data out)
   const fireOnChange = useActionTrigger(config.onChange);
@@ -100,4 +100,4 @@ function Comparator() {
   );
 }
 
-export default Comparator;
+export default OnChange;
