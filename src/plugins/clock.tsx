@@ -8,16 +8,9 @@ import {
 } from "@sigmacomputing/plugin";
 
 import type { ActualVariable } from "../types";
-import {
-  pluginContainerStyles,
-  pluginHeaderStyles,
-  pluginTitleStyles,
-  pluginContentStyles,
-  pluginStatusItemStyles,
-  pluginLabelStyles,
-  pluginValueStyles,
-  statusColors,
-} from "../styles/pluginStyles";
+import { PluginContainer } from "../components/PluginContainer";
+import { StatusItem } from "../components/StatusItem";
+import { statusColors } from "../styles/pluginStyles";
 
 interface ClockConfig_t {
   MSPT: string;
@@ -83,28 +76,16 @@ function Clock() {
   }, [isRunning, mspt, doTick]);
 
   return (
-    <div style={pluginContainerStyles}>
-      <div style={pluginHeaderStyles}>
-        <h2 style={pluginTitleStyles}>⏱️ Clock Plugin</h2>
-      </div>
-      <div style={pluginContentStyles}>
-        <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Status:</span>
-          <span
-            style={{
-              ...pluginValueStyles,
-              color: isRunning ? statusColors.running : statusColors.stopped,
-            }}
-          >
-            {isRunning ? "Running" : "Stopped"}
-          </span>
-        </div>
-        <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Tick Rate:</span>
-          <span style={pluginValueStyles}>{mspt}ms</span>
-        </div>
-      </div>
-    </div>
+    <PluginContainer title="⏱️ Clock Plugin">
+      <StatusItem
+        label="Status:"
+        value={isRunning ? "Running" : "Stopped"}
+        valueStyle={{
+          color: isRunning ? statusColors.running : statusColors.stopped,
+        }}
+      />
+      <StatusItem label="Tick Rate:" value={`${String(mspt)}ms`} />
+    </PluginContainer>
   );
 }
 

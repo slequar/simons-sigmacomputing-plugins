@@ -1,17 +1,7 @@
-import { useState } from "react";
 import { landingStyles } from "../styles/landingStyles";
+import { PluginCard } from "../components/PluginCard";
 
 export default function Landing() {
-  const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
-
-  const copyToClipboard = (url: string) => {
-    void navigator.clipboard.writeText(url);
-    setCopiedUrl(url);
-    setTimeout(() => {
-      setCopiedUrl(null);
-    }, 3000);
-  };
-
   const clockUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/clock`;
   const onloadUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/onload`;
   const echoUrl = `${window.location.origin}/simons-sigmacomputing-plugins/#/echo`;
@@ -37,112 +27,33 @@ export default function Landing() {
         <section style={landingStyles.pluginsSection}>
           <h2 style={landingStyles.pluginsSectionTitle}>Available Plugins</h2>
 
-          <div style={landingStyles.pluginCard}>
-            <h3 style={landingStyles.pluginCardTitle}>Clock Plugin</h3>
-            <p style={landingStyles.pluginDescription}>
-              A timer-based plugin that executes actions at regular intervals.
-              Configure the tick rate in milliseconds, control the running
-              state, and trigger actions automatically or manually through the
-              "Do One Tick" action.
-            </p>
-            <p style={landingStyles.pluginFeatures}>
-              <strong>Features:</strong> Configurable intervals, start/stop
-              control, automatic and manual triggering
-            </p>
-            <div style={landingStyles.urlContainer}>
-              <strong>URL:</strong>{" "}
-              <code style={landingStyles.pluginCode}>{clockUrl}</code>
-              <button
-                style={landingStyles.copyButton}
-                onClick={() => {
-                  copyToClipboard(clockUrl);
-                }}
-                title="Copy URL to clipboard"
-              >
-                {copiedUrl === clockUrl ? "✓ Copied!" : "Copy"}
-              </button>
-            </div>
-          </div>
+          <PluginCard
+            title="Clock Plugin"
+            description="A timer-based plugin that executes actions at regular intervals. Configure the tick rate in milliseconds, control the running state, and trigger actions automatically or manually through the 'Do One Tick' action."
+            features="Configurable intervals, start/stop control, automatic and manual triggering"
+            url={clockUrl}
+          />
 
-          <div style={landingStyles.pluginCard}>
-            <h3 style={landingStyles.pluginCardTitle}>OnLoad Plugin</h3>
-            <p style={landingStyles.pluginDescription}>
-              An initialization plugin that triggers an action when loaded, with
-              optional configurable delay. Ideal for setting up workflows or
-              executing startup actions automatically.
-            </p>
-            <p style={landingStyles.pluginFeatures}>
-              <strong>Features:</strong> Automatic on-load triggering, optional
-              delay (currently broken due to Sigma-side bug), manual step
-              execution
-            </p>
-            <div style={landingStyles.urlContainer}>
-              <strong>URL:</strong>{" "}
-              <code style={landingStyles.pluginCode}>{onloadUrl}</code>
-              <button
-                style={landingStyles.copyButton}
-                onClick={() => {
-                  copyToClipboard(onloadUrl);
-                }}
-                title="Copy URL to clipboard"
-              >
-                {copiedUrl === onloadUrl ? "✓ Copied!" : "Copy"}
-              </button>
-            </div>
-          </div>
+          <PluginCard
+            title="OnLoad Plugin"
+            description="An initialization plugin that triggers an action when loaded, with optional configurable delay. Ideal for setting up workflows or executing startup actions automatically."
+            features="Automatic on-load triggering, optional delay (currently broken due to Sigma-side bug), manual step execution"
+            url={onloadUrl}
+          />
 
-          <div style={landingStyles.pluginCard}>
-            <h3 style={landingStyles.pluginCardTitle}>Echo Plugin</h3>
-            <p style={landingStyles.pluginDescription}>
-              A simple echo plugin that receives a trigger and immediately sends
-              back an output effect. Useful for testing workflows or creating
-              simple pass-through actions.
-            </p>
-            <p style={landingStyles.pluginFeatures}>
-              <strong>Features:</strong> Instant echo response, trigger
-              counting, simple pass-through action
-            </p>
-            <div style={landingStyles.urlContainer}>
-              <strong>URL:</strong>{" "}
-              <code style={landingStyles.pluginCode}>{echoUrl}</code>
-              <button
-                style={landingStyles.copyButton}
-                onClick={() => {
-                  copyToClipboard(echoUrl);
-                }}
-                title="Copy URL to clipboard"
-              >
-                {copiedUrl === echoUrl ? "✓ Copied!" : "Copy"}
-              </button>
-            </div>
-          </div>
+          <PluginCard
+            title="Echo Plugin"
+            description="A simple echo plugin that receives a trigger and immediately sends back an output effect. Useful for testing workflows or creating simple pass-through actions."
+            features="Instant echo response, trigger counting, simple pass-through action"
+            url={echoUrl}
+          />
 
-          <div style={landingStyles.pluginCard}>
-            <h3 style={landingStyles.pluginCardTitle}>🔄 On Change Plugin</h3>
-            <p style={landingStyles.pluginDescription}>
-              A change detection plugin that fires an action whenever a control
-              value changes. Supports numbers and booleans, perfect for
-              monitoring variable changes and triggering workflows.
-            </p>
-            <p style={landingStyles.pluginFeatures}>
-              <strong>Features:</strong> Real-time value monitoring, automatic
-              trigger on any value change, change counting, supports numbers and
-              booleans
-            </p>
-            <div style={landingStyles.urlContainer}>
-              <strong>URL:</strong>{" "}
-              <code style={landingStyles.pluginCode}>{onchangeUrl}</code>
-              <button
-                style={landingStyles.copyButton}
-                onClick={() => {
-                  copyToClipboard(onchangeUrl);
-                }}
-                title="Copy URL to clipboard"
-              >
-                {copiedUrl === onchangeUrl ? "✓ Copied!" : "Copy"}
-              </button>
-            </div>
-          </div>
+          <PluginCard
+            title="🔄 On Change Plugin"
+            description="A change detection plugin that fires an action whenever a control value changes. Supports numbers and booleans, perfect for monitoring variable changes and triggering workflows."
+            features="Real-time value monitoring, automatic trigger on any value change, change counting, supports numbers and booleans"
+            url={onchangeUrl}
+          />
         </section>
       </main>
       <footer style={landingStyles.footer}>
