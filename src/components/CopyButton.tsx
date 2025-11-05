@@ -1,30 +1,34 @@
+import { useState } from "react";
 import { landingStyles } from "../styles/landingStyles";
 
-interface CopyButtonProps {
+interface CopyUrlButtonProps {
   url: string;
-  copiedUrl: string | null;
-  onCopy: (url: string) => void;
 }
 
 /**
- * CopyButton Component
+ * CopyUrlButton Component
  * Reusable button for copying URLs to clipboard
- * Shows "Copied!" feedback for 3 seconds after clicking
+ * Shows "✓ Copied!" feedback for 3 seconds after clicking
+ * Manages its own state internally
  */
-export function CopyButton({
-  url,
-  copiedUrl,
-  onCopy,
-}: CopyButtonProps) {
+export function CopyUrlButton({ url }: CopyUrlButtonProps) {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = () => {
+    void navigator.clipboard.writeText(url);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 3000);
+  };
+
   return (
     <button
       style={landingStyles.copyButton}
-      onClick={() => {
-        onCopy(url);
-      }}
+      onClick={handleCopy}
       title="Copy URL to clipboard"
     >
-      {copiedUrl === url ? "✓ Copied!" : "Copy"}
+      {isCopied ? "✓ Copied!" : "Copy"}
     </button>
   );
 }

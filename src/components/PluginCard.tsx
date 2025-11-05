@@ -1,13 +1,11 @@
 import { landingStyles } from "../styles/landingStyles";
-import { CopyButton } from "./CopyButton";
+import { CopyUrlButton } from "./CopyButton";
 
 interface PluginCardProps {
   title: string;
   description: string;
   features: string;
   url: string;
-  copiedUrl: string | null;
-  onCopy: (url: string) => void;
 }
 
 /**
@@ -20,8 +18,6 @@ export function PluginCard({
   description,
   features,
   url,
-  copiedUrl,
-  onCopy,
 }: PluginCardProps) {
   return (
     <div style={landingStyles.pluginCard}>
@@ -33,7 +29,7 @@ export function PluginCard({
       <div style={landingStyles.urlContainer}>
         <strong>URL:</strong>{" "}
         <code style={landingStyles.pluginCode}>{url}</code>
-        <CopyButton url={url} copiedUrl={copiedUrl} onCopy={onCopy} />
+        <CopyUrlButton url={url} />
       </div>
     </div>
   );

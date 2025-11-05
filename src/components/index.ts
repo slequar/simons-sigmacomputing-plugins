@@ -5,6 +5,6 @@
 
 export { PluginContainer } from "./PluginContainer";
 export { StatusItem } from "./StatusItem";
-export { CopyButton } from "./CopyButton";
+export { CopyUrlButton } from "./CopyButton";
 export { PluginCard } from "./PluginCard";
 
