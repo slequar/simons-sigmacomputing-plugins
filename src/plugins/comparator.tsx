@@ -15,76 +15,85 @@ import {
   pluginStatusItemStyles,
   pluginLabelStyles,
   pluginValueStyles,
-  statusColors,
 } from "../styles/pluginStyles";
 
 interface ComparatorConfig {
-  condition: string;
-  onTrue: string;
+  control: string;
+  onChange: string;
 }
 
 function Comparator() {
-  const [isTrue, setIsTrue] = useState(false);
-  const [triggerCount, setTriggerCount] = useState(0);
-  const [previousValue, setPreviousValue] = useState<boolean | null>(null);
+  const [currentValue, setCurrentValue] = useState<unknown>(null);
+  const [changeCount, setChangeCount] = useState(0);
+  const [previousValue, setPreviousValue] = useState<unknown>(null);
 
   useEditorPanelConfig([
     {
       type: "variable",
-      name: "condition",
-      label: "Condition",
-      allowedTypes: ["boolean"],
+      name: "control",
+      label: "Control",
+      allowedTypes: [
+        "boolean",
+        "date",
+        "number",
+        "text",
+        "text-list",
+        "number-list",
+        "date-list",
+        "number-range",
+        "date-range",
+      ],
     },
-    { type: "action-trigger", name: "onTrue", label: "On True" },
+    { type: "action-trigger", name: "onChange", label: "On Change" },
   ]);
 
   const config: ComparatorConfig = useConfig() as ComparatorConfig;
 
   // Set up action trigger (sending data out)
-  const fireOnTrue = useActionTrigger(config.onTrue);
+  const fireOnChange = useActionTrigger(config.onChange);
 
   // Extract variable
-  const [conditionVar] = useVariable(config.condition);
+  const [controlVar] = useVariable(config.control);
 
   // Get the actual value
-  const conditionValue = useMemo(() => {
-    const value = conditionVar?.defaultValue as ActualVariable | undefined;
-    return value?.type === "boolean" ? value.value : null;
-  }, [conditionVar]);
+  const controlValue = useMemo(() => {
+    const value = controlVar?.defaultValue as ActualVariable | undefined;
+    return value?.value ?? null;
+  }, [controlVar]);
 
-  // Fire action when condition becomes true
+  // Fire action when control value changes
   useEffect(() => {
-    setIsTrue(conditionValue === true);
+    setCurrentValue(controlValue);
 
-    // Only fire if the value changed from false/null to true
-    if (conditionValue === true && previousValue !== true) {
-      setTriggerCount((prev) => prev + 1);
-      fireOnTrue();
+    // Only fire if the value actually changed
+    if (controlValue !== previousValue && previousValue !== null) {
+      setChangeCount((prev) => prev + 1);
+      fireOnChange();
     }
 
-    setPreviousValue(conditionValue);
-  }, [conditionValue, previousValue, fireOnTrue]);
+    setPreviousValue(controlValue);
+  }, [controlValue, previousValue, fireOnChange]);
 
   return (
     <div style={pluginContainerStyles}>
       <div style={pluginHeaderStyles}>
-        <h2 style={pluginTitleStyles}>✓ Condition Plugin</h2>
+        <h2 style={pluginTitleStyles}>🔄 On Change Plugin</h2>
       </div>
       <div style={pluginContentStyles}>
         <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Condition:</span>
-          <span
-            style={{
-              ...pluginValueStyles,
-              color: isTrue ? statusColors.running : statusColors.stopped,
-            }}
-          >
-            {isTrue ? "True" : "False"}
+          <span style={pluginLabelStyles}>Current Value:</span>
+          <span style={pluginValueStyles}>
+            {currentValue !== null
+              ? typeof currentValue === "object"
+                ? JSON.stringify(currentValue)
+                : // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                  String(currentValue)
+              : "—"}
           </span>
         </div>
         <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Triggers Fired:</span>
-          <span style={pluginValueStyles}>{triggerCount}</span>
+          <span style={pluginLabelStyles}>Changes Detected:</span>
+          <span style={pluginValueStyles}>{changeCount}</span>
         </div>
       </div>
     </div>
