@@ -7,15 +7,7 @@ import {
 } from "@sigmacomputing/plugin";
 
 import type { ActualVariable } from "../types";
-import {
-  pluginContainerStyles,
-  pluginHeaderStyles,
-  pluginTitleStyles,
-  pluginContentStyles,
-  pluginStatusItemStyles,
-  pluginLabelStyles,
-  pluginValueStyles,
-} from "../styles/pluginStyles";
+import { PluginContainer, StatusItem } from "../components";
 
 interface OnChangeConfig {
   control: string;
@@ -74,29 +66,19 @@ function OnChange() {
     setPreviousValue(controlValue);
   }, [controlValue, previousValue, fireOnChange]);
 
+  const displayValue =
+    currentValue !== null
+      ? typeof currentValue === "object"
+        ? JSON.stringify(currentValue)
+        : // eslint-disable-next-line @typescript-eslint/no-base-to-string
+          String(currentValue)
+      : "—";
+
   return (
-    <div style={pluginContainerStyles}>
-      <div style={pluginHeaderStyles}>
-        <h2 style={pluginTitleStyles}>🔄 On Change Plugin</h2>
-      </div>
-      <div style={pluginContentStyles}>
-        <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Current Value:</span>
-          <span style={pluginValueStyles}>
-            {currentValue !== null
-              ? typeof currentValue === "object"
-                ? JSON.stringify(currentValue)
-                : // eslint-disable-next-line @typescript-eslint/no-base-to-string
-                  String(currentValue)
-              : "—"}
-          </span>
-        </div>
-        <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Changes Detected:</span>
-          <span style={pluginValueStyles}>{changeCount}</span>
-        </div>
-      </div>
-    </div>
+    <PluginContainer title="🔄 On Change Plugin">
+      <StatusItem label="Current Value:" value={displayValue} />
+      <StatusItem label="Changes Detected:" value={changeCount} />
+    </PluginContainer>
   );
 }
 

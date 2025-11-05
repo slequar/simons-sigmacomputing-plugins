@@ -6,16 +6,8 @@ import {
   useActionEffect,
 } from "@sigmacomputing/plugin";
 
-import {
-  pluginContainerStyles,
-  pluginHeaderStyles,
-  pluginTitleStyles,
-  pluginContentStyles,
-  pluginStatusItemStyles,
-  pluginLabelStyles,
-  pluginValueStyles,
-  statusColors,
-} from "../styles/pluginStyles";
+import { PluginContainer, StatusItem } from "../components";
+import { statusColors } from "../styles/pluginStyles";
 
 interface EchoConfig {
   trigger: string;
@@ -42,28 +34,14 @@ function Echo() {
   });
 
   return (
-    <div style={pluginContainerStyles}>
-      <div style={pluginHeaderStyles}>
-        <h2 style={pluginTitleStyles}>🔊 Echo Plugin</h2>
-      </div>
-      <div style={pluginContentStyles}>
-        <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Status:</span>
-          <span
-            style={{
-              ...pluginValueStyles,
-              color: statusColors.running,
-            }}
-          >
-            Ready
-          </span>
-        </div>
-        <div style={pluginStatusItemStyles}>
-          <span style={pluginLabelStyles}>Triggers Received:</span>
-          <span style={pluginValueStyles}>{triggerCount}</span>
-        </div>
-      </div>
-    </div>
+    <PluginContainer title="🔊 Echo Plugin">
+      <StatusItem
+        label="Status:"
+        value="Ready"
+        valueStyle={{ color: statusColors.running }}
+      />
+      <StatusItem label="Triggers Received:" value={triggerCount} />
+    </PluginContainer>
   );
 }
 
