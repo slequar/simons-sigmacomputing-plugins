@@ -40,7 +40,6 @@ function OnChange() {
   ]);
 
   const config: OnChangeConfig = useConfig() as OnChangeConfig;
-  console.log({ currentValue, previousValue, changeCount, config });
 
   // Set up action trigger (sending data out)
   const fireOnChange = useActionTrigger(config.onChange);
@@ -52,7 +51,6 @@ function OnChange() {
   const controlValue = useMemo(() => {
     return JSON.stringify(controlVar?.defaultValue);
   }, [controlVar]);
-  console.log({ controlVar, controlValue });
 
   // Fire action when control value changes
   useEffect(() => {
