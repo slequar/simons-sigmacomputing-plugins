@@ -6,7 +6,6 @@ import {
   useVariable,
 } from "@sigmacomputing/plugin";
 
-import type { ActualVariable } from "../types";
 import { PluginContainer } from "../components/PluginContainer";
 import { StatusItem } from "../components/StatusItem";
 
@@ -16,9 +15,9 @@ interface OnChangeConfig {
 }
 
 function OnChange() {
-  const [currentValue, setCurrentValue] = useState<unknown>(null);
+  const [currentValue, setCurrentValue] = useState<string | null>(null);
   const [changeCount, setChangeCount] = useState(0);
-  const [previousValue, setPreviousValue] = useState<unknown>(null);
+  const [previousValue, setPreviousValue] = useState<string | null>(null);
 
   useEditorPanelConfig([
     {
@@ -41,6 +40,7 @@ function OnChange() {
   ]);
 
   const config: OnChangeConfig = useConfig() as OnChangeConfig;
+  console.log({ currentValue, previousValue, changeCount, config });
 
   // Set up action trigger (sending data out)
   const fireOnChange = useActionTrigger(config.onChange);
@@ -50,15 +50,16 @@ function OnChange() {
 
   // Get the actual value
   const controlValue = useMemo(() => {
-    const value = controlVar?.defaultValue as ActualVariable | undefined;
-    return value?.value ?? null;
+    return JSON.stringify(controlVar?.defaultValue);
   }, [controlVar]);
+  console.log({ controlVar, controlValue });
 
   // Fire action when control value changes
   useEffect(() => {
     setCurrentValue(controlValue);
 
     // Only fire if the value actually changed
+    // Use JSON.stringify to handle array comparisons (text-list, number-list, etc.)
     if (controlValue !== previousValue && previousValue !== null) {
       setChangeCount((prev) => prev + 1);
       fireOnChange();
@@ -68,16 +69,11 @@ function OnChange() {
   }, [controlValue, previousValue, fireOnChange]);
 
   const displayValue =
-    currentValue !== null
-      ? typeof currentValue === "object"
-        ? JSON.stringify(currentValue)
-        : // eslint-disable-next-line @typescript-eslint/no-base-to-string
-          String(currentValue)
-      : "—";
+    currentValue !== null ? JSON.stringify(currentValue) : "—";
 
   return (
     <PluginContainer title="🔄 On Change Plugin">
-      <StatusItem label="Current Value:" value={displayValue} />
+      <StatusItem label="Current Value:" value={displayValue} maxLength={50} />
       <StatusItem label="Changes Detected:" value={changeCount} />
     </PluginContainer>
   );
