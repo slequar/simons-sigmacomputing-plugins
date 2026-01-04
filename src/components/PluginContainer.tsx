@@ -16,10 +16,7 @@ interface PluginContainerProps {
  * Reusable layout component for all plugins
  * Provides consistent header, title, and content area styling
  */
-export function PluginContainer({
-  title,
-  children,
-}: PluginContainerProps) {
+export function PluginContainer({ title, children }: PluginContainerProps) {
   return (
     <div style={pluginContainerStyles}>
       <div style={pluginHeaderStyles}>
@@ -29,4 +26,3 @@ export function PluginContainer({
     </div>
   );
 }
-

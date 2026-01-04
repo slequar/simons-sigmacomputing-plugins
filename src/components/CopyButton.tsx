@@ -32,4 +32,3 @@ export function CopyUrlButton({ url }: CopyUrlButtonProps) {
     </button>
   );
 }
-

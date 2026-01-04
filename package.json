@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "format": "prettier --write .",
-    "preview": "vite preview"
+    "lint": "eslint . --fix && yarn format",
+    "format": "prettier --write . --log-level=warn",
+    "preview": "vite preview",
+    "prepare": "husky"
   },
   "dependencies": {
     "@sigmacomputing/plugin": "^1.0.10",
@@ -29,6 +30,7 @@
     "eslint-plugin-react-refresh": "^0.4.22",
     "eslint-plugin-react-x": "^2.2.2",
     "globals": "^16.4.0",
+    "husky": "^9.1.7",
     "prettier": "^3.6.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.45.0",
