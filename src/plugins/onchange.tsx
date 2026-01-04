@@ -14,10 +14,16 @@ interface OnChangeConfig {
   onChange: string;
 }
 
+// Delay before onChange events can fire to work around Sigma bug where controls
+// initialize as null and then immediately update to their actual value
+const INITIALIZATION_DELAY_MS = 200;
+
 function OnChange() {
   const [currentValue, setCurrentValue] = useState<string | null>(null);
   const [changeCount, setChangeCount] = useState(0);
   const [previousValue, setPreviousValue] = useState<string | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [hasSeenFirstValue, setHasSeenFirstValue] = useState(false);
 
   useEditorPanelConfig([
     {
@@ -52,19 +58,39 @@ function OnChange() {
     return JSON.stringify(controlVar?.defaultValue);
   }, [controlVar]);
 
+  // Set initialization flag after delay to prevent firing during Sigma's initial null->value transition
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsInitialized(true);
+    }, INITIALIZATION_DELAY_MS);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   // Fire action when control value changes
   useEffect(() => {
     setCurrentValue(controlValue);
 
-    // Only fire if the value actually changed
-    // Use JSON.stringify to handle array comparisons (text-list, number-list, etc.)
-    if (controlValue !== previousValue && previousValue !== null) {
+    // Only fire if:
+    // 1. We're past the initialization period (prevents initial load bug)
+    // 2. The value actually changed
+    // 3. This isn't the very first value we're seeing
+    if (isInitialized && controlValue !== previousValue && hasSeenFirstValue) {
       setChangeCount((prev) => prev + 1);
       fireOnChange();
     }
 
+    setHasSeenFirstValue(true);
     setPreviousValue(controlValue);
-  }, [controlValue, previousValue, fireOnChange]);
+  }, [
+    controlValue,
+    previousValue,
+    fireOnChange,
+    isInitialized,
+    hasSeenFirstValue,
+  ]);
 
   const displayValue =
     currentValue !== null ? JSON.stringify(currentValue) : "—";
